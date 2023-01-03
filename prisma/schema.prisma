@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Institution {
+  id   String @id
+  name String @unique
+
+  Employee  Employee[]
+  Student   Student[]
+  Classroom Classroom[]
+
+  @@map("institution")
+}
+
+model Employee {
+  id     String @id
+  name   String @unique
+  salary Float
+
+  institution_id String
+  institution    Institution @relation(fields: [institution_id], references: [id])
+  teacher        Teacher?
+
+  @@map("employee")
+}
+
+model Teacher {
+  id String @id
+
+  employee_id String      @unique
+  employee    Employee    @relation(fields: [employee_id], references: [id])
+  classroom   Classroom[]
+
+  @@map("teacher")
+}
+
+model Student {
+  id   String @id
+  name String @unique
+
+  institution_id String
+  institution    Institution    @relation(fields: [institution_id], references: [id])
+  student_class  StudentClass[]
+
+  @@map("student")
+}
+
+model StudentClass {
+  id String @id
+
+  student_id   String
+  student      Student   @relation(fields: [student_id], references: [id])
+  classroom_id String
+  classroom    Classroom @relation(fields: [classroom_id], references: [id])
+
+  @@map("student_class")
+}
+
+model Classroom {
+  id            String @id
+  grade_number  Int
+  subjects_name String
+
+  institution_id String
+  institution    Institution    @relation(fields: [institution_id], references: [id])
+  teacher_id     String
+  teacher        Teacher        @relation(fields: [teacher_id], references: [id])
+  student_class  StudentClass[]
+
+  @@map("classroom")
+}
