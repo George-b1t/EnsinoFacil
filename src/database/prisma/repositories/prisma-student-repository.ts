@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Student } from "@prisma/client";
-import { CreateStudentProps, FindStudentByNameProps, StudentRepository } from "src/app/modules/student/student-repository";
+import { CreateStudentProps, FindStudentByIdProps, FindStudentByNameProps, StudentRepository } from "src/app/modules/student/student-repository";
 import { PrismaStudentMapper } from "../mappers/prisma-student-mapper";
 import { PrismaService } from "../prisma.service";
 
@@ -16,6 +16,20 @@ export class PrismaStudentRepository implements StudentRepository {
     await this.prismaService.student.create({
       data: raw
     })
+  }
+
+  async findById(props: FindStudentByIdProps): Promise<Student> {
+    const { id } = props;
+
+    const student = await this.prismaService.student.findUnique({
+      where: {
+        id
+      }
+    })
+
+    if(!student) return null;
+
+    return student;
   }
 
   async findByName(props: FindStudentByNameProps): Promise<Student | null> {
