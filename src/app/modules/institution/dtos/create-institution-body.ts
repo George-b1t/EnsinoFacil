@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, Length, IsString } from "class-validator";
 
 export class CreateInstitutionBody {
   @IsNotEmpty()
