@@ -18,6 +18,7 @@ export class EmployeeController {
   async create(@Body() body: CreateEmployeeBody): Promise<void> {
     const {
       name,
+      password,
       salary,
       institution_id,
       permissions
@@ -25,6 +26,7 @@ export class EmployeeController {
 
     await this.createEmployeeUseCase.execute({
       name,
+      password,
       salary,
       institution_id,
       permissions

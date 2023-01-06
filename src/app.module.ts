@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from './app/modules/auth/auth.module';
 import { ClassroomModule } from './app/modules/classroom/classroom.module';
 import { EmployeeModule } from './app/modules/employee/employee.module';
 import { InstitutionModule } from './app/modules/institution/institution.module';
@@ -13,7 +14,8 @@ import { TeacherModule } from './app/modules/teacher/teacher.module';
     TeacherModule,
     StudentModule,
     ClassroomModule,
-    StudentClassModule
+    StudentClassModule,
+    AuthModule
   ],
 })
 

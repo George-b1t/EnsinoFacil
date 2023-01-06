@@ -21,6 +21,7 @@ model Institution {
 model Employee {
   id          String   @id
   name        String   @unique
+  password    String
   salary      Float
   permissions String[]
 

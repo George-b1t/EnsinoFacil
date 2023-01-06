@@ -6,6 +6,7 @@ import { EmployeeRepository } from "../employee-repository";
 
 interface CreateEmployeeUseCaseRequest {
   name: string;
+  password: string;
   salary: number;
   institution_id: string;
   permissions: PermissionsType[];
@@ -19,6 +20,7 @@ export class CreateEmployeeUseCase {
   async execute(request: CreateEmployeeUseCaseRequest): Promise<void> {
     const {
       name,
+      password,
       salary,
       institution_id,
       permissions
@@ -42,6 +44,7 @@ export class CreateEmployeeUseCase {
 
     const employee = new EmployeeEntity({
       name,
+      password,
       salary,
       institution_id,
       permissions

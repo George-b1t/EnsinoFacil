@@ -8,6 +8,11 @@ export class CreateEmployeeBody {
   name: string;
 
   @IsNotEmpty()
+  @Length(8, 30)
+  @IsString()
+  password: string;
+
+  @IsNotEmpty()
   @IsNumber()
   salary: number;
 
