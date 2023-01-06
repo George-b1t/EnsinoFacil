@@ -1,4 +1,5 @@
-import { IsNotEmpty, Length, IsNumber, IsString, IsUUID } from "class-validator";
+import { IsNotEmpty, Length, IsNumber, IsString, IsUUID, IsArray } from "class-validator";
+import { PermissionsType } from "../employee-entity";
 
 export class CreateEmployeeBody {
   @IsNotEmpty()
@@ -14,4 +15,8 @@ export class CreateEmployeeBody {
   @IsString()
   @IsUUID()
   institution_id: string;
+
+  @IsString({ each: true })
+  @IsNotEmpty()
+  permissions: PermissionsType[];
 }

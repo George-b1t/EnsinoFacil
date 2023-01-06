@@ -19,9 +19,10 @@ model Institution {
 }
 
 model Employee {
-  id     String @id
-  name   String @unique
-  salary Float
+  id          String   @id
+  name        String   @unique
+  salary      Float
+  permissions String[]
 
   institution_id String
   institution    Institution @relation(fields: [institution_id], references: [id])

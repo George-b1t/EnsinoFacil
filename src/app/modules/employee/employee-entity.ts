@@ -1,9 +1,12 @@
 import { randomUUID } from "crypto";
 
+export type PermissionsType = "list_classroom" | "create_classroom";
+
 interface EmployeeProps {
   name: string;
   salary: number;
   institution_id: string;
+  permissions: PermissionsType[];
 }
 
 export class EmployeeEntity {
@@ -37,5 +40,13 @@ export class EmployeeEntity {
 
   public set salary(salary: number) {
     this.props.salary = salary;
+  }
+
+  public get permissions(): PermissionsType[] {
+    return this.props.permissions;
+  }
+
+  public set permissions(permissions: PermissionsType[]) {
+    this.props.permissions = permissions;
   }
 }

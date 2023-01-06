@@ -11,6 +11,7 @@ CREATE TABLE "employee" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "salary" DOUBLE PRECISION NOT NULL,
+    "permissions" TEXT[],
     "institution_id" TEXT NOT NULL,
 
     CONSTRAINT "employee_pkey" PRIMARY KEY ("id")

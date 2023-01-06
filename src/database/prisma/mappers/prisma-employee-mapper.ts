@@ -6,7 +6,8 @@ export class PrismaEmployeeMapper {
       id: employee.id,
       name: employee.name,
       salary: employee.salary,
-      institution_id: employee.institution_id
+      institution_id: employee.institution_id,
+      permissions: employee.permissions
     }
   }
 }

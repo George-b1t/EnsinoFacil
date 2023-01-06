@@ -16,12 +16,18 @@ export class EmployeeController {
 
   @Post("create")
   async create(@Body() body: CreateEmployeeBody): Promise<void> {
-    const { name, salary, institution_id } = body;
+    const {
+      name,
+      salary,
+      institution_id,
+      permissions
+    } = body;
 
     await this.createEmployeeUseCase.execute({
       name,
       salary,
-      institution_id
+      institution_id,
+      permissions
     })
   }
 
