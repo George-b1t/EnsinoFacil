@@ -1,34 +1,28 @@
 import { Injectable } from "@nestjs/common";
-import { Employee } from "@prisma/client";
 import { AppError } from "src/app/errors/AppError";
 import { InstitutionRepository } from "../../institution/institution-repository";
 import { EmployeeEntity } from "../employee-entity";
 import { EmployeeRepository } from "../employee-repository";
 
-interface CreateEmployeeUseCaseRequest {
+interface CreateAdministratorEmployeeUseCaseRequest {
   name: string;
   password: string;
-  role: string;
   salary: number;
   institution_id: string;
-  permissions: string[];
-  by_employee: Employee;
 }
 
 @Injectable()
-export class CreateEmployeeUseCase {
+export class CreateAdministratorEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository,
               private institutionRepository: InstitutionRepository) {}
 
-  async execute(request: CreateEmployeeUseCaseRequest): Promise<void> {
+
+  async execute(request: CreateAdministratorEmployeeUseCaseRequest): Promise<void> {
     const {
       name,
       password,
-      role,
       salary,
-      institution_id,
-      permissions,
-      by_employee
+      institution_id
     } = request;
 
     // verify if institution exists
@@ -47,27 +41,17 @@ export class CreateEmployeeUseCase {
 
     if (!!employeeByName) throw new AppError("name already exists");
 
-    // verify if by_employee is administrator
-
-    if (by_employee.role !== "administrator") throw new AppError("only administrator can create an employee");
-
-    // verify if is creating in other institution
-
-    if (by_employee.institution_id !== institution_id) throw new AppError("can only create in the same institution");
-
-    const verifiedPermissions = role === "administrator" ? [] : permissions;
-
     const employee = new EmployeeEntity({
       name,
       password,
-      role,
+      role: "administrator",
       salary,
       institution_id,
-      permissions: verifiedPermissions
+      permissions: []
     });
 
     await this.employeeRepository.create({
       employee
-    });
+    })
   }
 }

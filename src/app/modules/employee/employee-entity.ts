@@ -2,14 +2,13 @@ import { randomUUID } from "crypto";
 import { compare, hashSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
-export type PermissionsType = "list_classroom" | "create_classroom";
-
 interface EmployeeProps {
   name: string;
   password: string;
+  role: string;
   salary: number;
   institution_id: string;
-  permissions: PermissionsType[];
+  permissions: string[];
 }
 
 export class EmployeeEntity {
@@ -52,6 +51,14 @@ export class EmployeeEntity {
     return this.props.password;
   }
 
+  public get role(): string {
+    return this.props.role;
+  }
+
+  public set role(role: string) {
+    this.props.role = role;
+  }
+
   public get salary(): number {
     return this.props.salary;
   }
@@ -60,11 +67,11 @@ export class EmployeeEntity {
     this.props.salary = salary;
   }
 
-  public get permissions(): PermissionsType[] {
+  public get permissions(): string[] {
     return this.props.permissions;
   }
 
-  public set permissions(permissions: PermissionsType[]) {
+  public set permissions(permissions: string[]) {
     this.props.permissions = permissions;
   }
 }

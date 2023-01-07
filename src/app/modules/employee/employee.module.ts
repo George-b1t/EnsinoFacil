@@ -5,6 +5,7 @@ import { PrismaInstitutionRepository } from "src/database/prisma/repositories/pr
 import { InstitutionRepository } from "../institution/institution-repository";
 import { EmployeeRepository } from "./employee-repository";
 import { EmployeeController } from "./employee.controller";
+import { CreateAdministratorEmployeeUseCase } from "./use-cases/create-administrator-employee-use-case";
 import { CreateEmployeeUseCase } from "./use-cases/create-employee-use-case";
 import { ListEmployeesByInstitutionIdUseCase } from "./use-cases/list-employees-by-institution-id-use-case";
 
@@ -12,6 +13,7 @@ import { ListEmployeesByInstitutionIdUseCase } from "./use-cases/list-employees-
   controllers: [EmployeeController],
   providers: [PrismaService,
     CreateEmployeeUseCase,
+    CreateAdministratorEmployeeUseCase,
     ListEmployeesByInstitutionIdUseCase,
     {
       provide: EmployeeRepository,

@@ -32,11 +32,16 @@ export class AuthModule implements NestModule {
     consumer
       .apply(LoginEmployeeMiddleware)
       .exclude(
+        // ROTAS DE LOGIN
         { path: "auth/login", method: RequestMethod.POST },
         { path: "auth/login/master", method: RequestMethod.POST },
-        { path: "institution/create", method: RequestMethod.POST },
-        { path: "employee/create", method: RequestMethod.POST },
+
+        // ROTA DE CRIAÇÃO DO MASTER USER
         { path: "masteruser/create", method: RequestMethod.POST },
+
+        // MASTER ROUTES
+        { path: "institution/create", method: RequestMethod.POST },
+        { path: "employee/create/administrator", method: RequestMethod.POST },
       )
       .forRoutes("*")
 
@@ -44,7 +49,7 @@ export class AuthModule implements NestModule {
       .apply(LoginMasterUserMiddleware)
       .forRoutes(
         { path: "institution/create", method: RequestMethod.POST },
-        { path: "employee/create", method: RequestMethod.POST }
+        { path: "employee/create/administrator", method: RequestMethod.POST }
       )
   }
 }

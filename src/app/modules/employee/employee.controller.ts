@@ -1,9 +1,12 @@
-import { Body, Controller, Post, Get } from "@nestjs/common";
+import { Body, Controller, Post, Get, Request } from "@nestjs/common";
 import { CreateEmployeeBody } from "./dtos/create-employee-body";
 import { ListEmployeesByInstitutionIdBody } from "./dtos/list-employees-by-institution-id-body";
 import { Employee as PrismaEmployee } from "@prisma/client";
 import { CreateEmployeeUseCase } from "./use-cases/create-employee-use-case";
 import { ListEmployeesByInstitutionIdUseCase } from "./use-cases/list-employees-by-institution-id-use-case";
+import { CreateAdministratorEmployeeUseCase } from "./use-cases/create-administrator-employee-use-case";
+import { Request as ExpressRequest } from "express";
+import { CreateAdministratorEmployeeBody } from "./dtos/create-administrator-employee-body";
 
 interface ListByInstitutionIdResponse {
   employees: PrismaEmployee[];
@@ -12,24 +15,47 @@ interface ListByInstitutionIdResponse {
 @Controller("employee")
 export class EmployeeController {
   constructor(private createEmployeeUseCase: CreateEmployeeUseCase,
+              private createAdministratorEmployeeUseCase: CreateAdministratorEmployeeUseCase,
               private listEmployeesByInstitutionIdUseCase: ListEmployeesByInstitutionIdUseCase) {}
 
   @Post("create")
-  async create(@Body() body: CreateEmployeeBody): Promise<void> {
+  async create(@Body() body: CreateEmployeeBody, @Request() req: ExpressRequest): Promise<void> {
     const {
       name,
       password,
+      role,
       salary,
       institution_id,
       permissions
     } = body;
 
+    console.log(req)
+
     await this.createEmployeeUseCase.execute({
       name,
       password,
+      role,
       salary,
       institution_id,
-      permissions
+      permissions,
+      by_employee: req["employee"]
+    })
+  }
+
+  @Post("create/administrator")
+  async createAdministrator(@Body() body: CreateAdministratorEmployeeBody): Promise<void> {
+    const {
+      name,
+      password,
+      salary,
+      institution_id
+    } = body;
+
+    await this.createAdministratorEmployeeUseCase.execute({
+      name,
+      password,
+      salary,
+      institution_id
     })
   }
 

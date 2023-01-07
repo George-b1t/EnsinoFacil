@@ -1,5 +1,5 @@
 import { Employee } from "@prisma/client";
-import { EmployeeEntity, PermissionsType } from "src/app/modules/employee/employee-entity";
+import { EmployeeEntity } from "src/app/modules/employee/employee-entity";
 
 export class PrismaEmployeeMapper {
   static toPrisma(employee: EmployeeEntity): Employee {
@@ -7,6 +7,7 @@ export class PrismaEmployeeMapper {
       id: employee.id,
       name: employee.name,
       password: employee.password,
+      role: employee.role,
       salary: employee.salary,
       institution_id: employee.institution_id,
       permissions: employee.permissions
@@ -17,8 +18,9 @@ export class PrismaEmployeeMapper {
     const raw = new EmployeeEntity({
       name: employee.name,
       password: employee.password,
+      role: employee.role,
       salary: employee.salary,
-      permissions: employee.permissions as PermissionsType[],
+      permissions: employee.permissions,
       institution_id: employee.institution_id,
     }, employee.id, employee.password)
 

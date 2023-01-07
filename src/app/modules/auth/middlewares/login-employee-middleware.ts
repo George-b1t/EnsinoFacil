@@ -30,6 +30,8 @@ export class LoginEmployeeMiddleware implements NestMiddleware {
 
       if(!employee) throw new Error();
 
+      req["employee"] = employee;
+
       next();
     } catch {
       throw new AppError("invalid token");
