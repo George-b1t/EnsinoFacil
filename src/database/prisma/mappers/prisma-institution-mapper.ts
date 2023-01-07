@@ -1,5 +1,4 @@
 import { InstitutionEntity } from "src/app/modules/institution/institution-entity";
-import { Institution } from "@prisma/client";
 
 export class PrismaInstitutionMapper {
   static toPrisma(institution: InstitutionEntity) {

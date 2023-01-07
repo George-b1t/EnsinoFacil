@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, IsNumber, IsString, IsUUID } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class ListEmployeesByInstitutionIdBody {
   @IsNotEmpty()

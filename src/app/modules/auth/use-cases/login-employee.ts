@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { AppError } from "src/app/errors/AppError";
 import { PrismaEmployeeMapper } from "src/database/prisma/mappers/prisma-employee-mapper";
-import { EmployeeEntity } from "../../employee/employee-entity";
 import { EmployeeRepository } from "../../employee/employee-repository";
 
 interface LoginRequest {
