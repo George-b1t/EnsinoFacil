@@ -1,6 +1,6 @@
 import { IsNotEmpty, Length, IsString } from "class-validator";
 
-export class LoginEmployeeBody {
+export class LoginBody {
   @IsNotEmpty()
   @Length(2, 30)
   @IsString()

@@ -1,5 +1,6 @@
-import { hashSync } from "bcryptjs";
+import { compare, hashSync } from "bcryptjs";
 import { randomUUID } from "crypto";
+import { sign } from "jsonwebtoken";
 
 interface MasterUserProps {
   name: string;
@@ -10,12 +11,20 @@ export class MasterUserEntity {
   private _id: string;
   private props: MasterUserProps;
 
-  constructor(props: MasterUserProps) {
-    this._id = randomUUID();
+  constructor(props: MasterUserProps, masterUserId?: string, password?: string) {
+    this._id = masterUserId ?? randomUUID();
     this.props = {
       ...props,
-      password: hashSync(props.password, 8)
+      password: password ?? hashSync(props.password, 8)
     };
+  }
+
+  public async checkPassword(password: string): Promise<boolean> {
+    return await compare(password, this.props.password);
+  }
+
+  public generateToken(): string {
+    return sign({ id: this._id }, process.env.SECRET_MASTER_USER_TOKEN, { expiresIn: "1h"});
   }
 
   public get id(): string {

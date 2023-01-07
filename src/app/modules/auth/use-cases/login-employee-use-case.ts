@@ -13,7 +13,7 @@ interface LoginResponse {
 }
 
 @Injectable()
-export class LoginEmployee {
+export class LoginEmployeeUseCase {
   constructor(private employeeRepository: EmployeeRepository) {}
 
   async execute(request: LoginRequest): Promise<LoginResponse> {

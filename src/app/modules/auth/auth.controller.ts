@@ -1,16 +1,32 @@
 import { Controller, Post, Body } from "@nestjs/common";
-import { LoginEmployeeBody } from "./dtos/login-employee-body";
-import { LoginEmployee } from "./use-cases/login-employee";
+import { LoginBody } from "./dtos/login-body";
+import { LoginEmployeeUseCase } from "./use-cases/login-employee-use-case";
+import { LoginMasterUserUseCase } from "./use-cases/login-master-user-use-case";
 
 @Controller("auth")
 export class AuthController {
-  constructor(private loginEmployee: LoginEmployee) {}
+  constructor(private loginEmployeeUseCase: LoginEmployeeUseCase,
+              private loginMasterUserUseCase: LoginMasterUserUseCase) {}
 
   @Post("login")
-  async login(@Body() body: LoginEmployeeBody) {
+  async login(@Body() body: LoginBody) {
     const { name, password } = body;
 
-    const { token } = await this.loginEmployee.execute({
+    const { token } = await this.loginEmployeeUseCase.execute({
+      name,
+      password
+    });
+
+    return {
+      token
+    }
+  }
+
+  @Post("login/master")
+  async loginMaster(@Body() body: LoginBody) {
+    const { name, password } = body;
+
+    const { token } = await this.loginMasterUserUseCase.execute({
       name,
       password
     });
