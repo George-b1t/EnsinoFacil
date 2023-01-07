@@ -55,6 +55,15 @@ CREATE TABLE "classroom" (
     CONSTRAINT "classroom_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "master_user" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "master_user_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "institution_name_key" ON "institution"("name");
 
@@ -66,6 +75,9 @@ CREATE UNIQUE INDEX "teacher_employee_id_key" ON "teacher"("employee_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "student_name_key" ON "student"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "master_user_name_key" ON "master_user"("name");
 
 -- AddForeignKey
 ALTER TABLE "employee" ADD CONSTRAINT "employee_institution_id_fkey" FOREIGN KEY ("institution_id") REFERENCES "institution"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

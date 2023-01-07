@@ -24,7 +24,6 @@ export class AuthModule implements NestModule {
       .apply(LoginEmployeeMiddleware)
       .exclude(
         { path: "auth/login", method: RequestMethod.POST },
-        { path: "employee/create", method: RequestMethod.POST },
         { path: "institution/create", method: RequestMethod.POST },
       )
       .forRoutes("*")

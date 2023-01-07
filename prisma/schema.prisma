@@ -77,3 +77,11 @@ model Classroom {
 
   @@map("classroom")
 }
+
+model MasterUser {
+  id       String @id
+  name     String @unique
+  password String
+
+  @@map("master_user")
+}
