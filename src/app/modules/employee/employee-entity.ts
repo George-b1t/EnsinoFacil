@@ -29,7 +29,7 @@ export class EmployeeEntity {
   }
 
   public generateToken(): string {
-    return sign({ id: this._id }, process.env.SECRET_USER_TOKEN, { expiresIn: "1h"});
+    return sign({ id: this._id }, process.env.SECRET_EMPLOYEE_TOKEN, { expiresIn: "1h"});
   }
 
   public get id(): string {
