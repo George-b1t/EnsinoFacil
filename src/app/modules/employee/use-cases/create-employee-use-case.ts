@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Employee } from "@prisma/client";
 import { AppError } from "src/app/errors/AppError";
+import { CheckEmployeePermissionsHelper } from "src/app/helpers/Check-employee-permissions-helper";
 import { InstitutionRepository } from "../../institution/institution-repository";
 import { EmployeeEntity } from "../employee-entity";
 import { EmployeeRepository } from "../employee-repository";
@@ -31,6 +32,20 @@ export class CreateEmployeeUseCase {
       by_employee
     } = request;
 
+    // verify if by_employee has permission
+
+    const hasPermission = CheckEmployeePermissionsHelper.execute({
+      permissions: by_employee.permissions,
+      permissionsToCheck: ["create_employee"],
+      role: by_employee.role
+    });
+
+    if (!hasPermission) throw new AppError("not allowed to create employee")
+
+    // verify if the institution is wrong
+
+    if (by_employee.institution_id !== institution_id) throw new AppError("wrong institution");
+
     // verify if institution exists
 
     const institution = await this.institutionRepository.findById({
@@ -46,14 +61,6 @@ export class CreateEmployeeUseCase {
     })
 
     if (!!employeeByName) throw new AppError("name already exists");
-
-    // verify if by_employee is administrator
-
-    if (by_employee.role !== "administrator") throw new AppError("only administrator can create an employee");
-
-    // verify if the institution is wrong
-
-    if (by_employee.institution_id !== institution_id) throw new AppError("wrong institution");
 
     const verifiedPermissions = role === "administrator" ? [] : permissions;
 

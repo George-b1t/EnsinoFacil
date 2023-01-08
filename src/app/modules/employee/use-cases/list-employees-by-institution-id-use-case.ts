@@ -24,7 +24,7 @@ export class ListEmployeesByInstitutionIdUseCase {
       role: by_employee.role
     });
 
-    if (!hasPermission) throw new AppError("not allowed to list employees")
+    if (!hasPermission) throw new AppError("not allowed to list employee")
 
     // verify if the institution is wrong
 

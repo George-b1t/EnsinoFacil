@@ -29,8 +29,6 @@ export class EmployeeController {
       permissions
     } = body;
 
-    console.log(req)
-
     await this.createEmployeeUseCase.execute({
       name,
       password,
