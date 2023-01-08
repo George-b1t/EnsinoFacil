@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { AppError } from "src/app/errors/AppError";
+import { AppError } from "src/app/errors/app-error";
 import { PrismaEmployeeMapper } from "src/database/prisma/mappers/prisma-employee-mapper";
 import { EmployeeRepository } from "../../employee/employee-repository";
 

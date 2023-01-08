@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { AppError } from "src/app/errors/AppError";
+import { AppError } from "src/app/errors/app-error";
 import { InstitutionEntity } from "../institution-entity";
 import { InstitutionRepository } from "../institution-repository";
 

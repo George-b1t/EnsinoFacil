@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Employee } from "@prisma/client";
-import { AppError } from "src/app/errors/AppError";
+import { AppError } from "src/app/errors/app-error";
 import { CheckEmployeePermissionsHelper } from "src/app/helpers/Check-employee-permissions-helper";
 import { InstitutionRepository } from "../../institution/institution-repository";
 import { EmployeeEntity } from "../employee-entity";

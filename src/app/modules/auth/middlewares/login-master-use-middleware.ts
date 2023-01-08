@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
-import { AppError } from "src/app/errors/AppError";
+import { AppError } from "src/app/errors/app-error";
 import { MasterUserRepository } from "../../masteruser/master-user-repository";
 
 interface TokenPayload {

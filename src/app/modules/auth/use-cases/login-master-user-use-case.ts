@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { AppError } from "src/app/errors/AppError";
+import { AppError } from "src/app/errors/app-error";
 import { PrismaMasterUserMapper } from "src/database/prisma/mappers/prisma-master-user-mapper";
 import { MasterUserRepository } from "../../masteruser/master-user-repository";
 
