@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Request } from "@nestjs/common";
 import { CreateEmployeeBody } from "./dtos/create-employee-body";
 import { ListEmployeesByInstitutionIdBody } from "./dtos/list-employees-by-institution-id-body";
-import { Employee as PrismaEmployee } from "@prisma/client";
+import { Employee } from "@prisma/client";
 import { CreateEmployeeUseCase } from "./use-cases/create-employee-use-case";
 import { ListEmployeesByInstitutionIdUseCase } from "./use-cases/list-employees-by-institution-id-use-case";
 import { CreateAdministratorEmployeeUseCase } from "./use-cases/create-administrator-employee-use-case";
@@ -9,7 +9,7 @@ import { Request as ExpressRequest } from "express";
 import { CreateAdministratorEmployeeBody } from "./dtos/create-administrator-employee-body";
 
 interface ListByInstitutionIdResponse {
-  employees: PrismaEmployee[];
+  employees: Omit<Employee, "password">[];
 }
 
 @Controller("employee")

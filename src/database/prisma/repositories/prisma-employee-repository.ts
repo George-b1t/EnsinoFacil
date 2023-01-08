@@ -21,11 +21,11 @@ export class PrismaEmployeeRepository implements EmployeeRepository {
   async listByInstitutionId(props: ListEmployeesByInstitutionIdProps): Promise<Employee[]> {
     const { institution_id } = props;
 
-    const raw = (await this.prismaService.employee.findMany({
+    const raw = await this.prismaService.employee.findMany({
       where: {
-        institution_id: institution_id
+        institution_id
       }
-    }))
+    })
 
     return raw;
   }
