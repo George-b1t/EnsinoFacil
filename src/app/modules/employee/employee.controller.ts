@@ -60,11 +60,15 @@ export class EmployeeController {
   }
 
   @Get("listByInstitutionId")
-  async listByInstitutionId(@Body() body: ListEmployeesByInstitutionIdBody): Promise<ListByInstitutionIdResponse> {
+  async listByInstitutionId(
+    @Body() body: ListEmployeesByInstitutionIdBody,
+    @Request() req: ExpressRequest
+  ): Promise<ListByInstitutionIdResponse> {
     const { institution_id } = body;
 
     const employees = await this.listEmployeesByInstitutionIdUseCase.execute({
-      institution_id
+      institution_id,
+      by_employee: req["employee"]
     });
 
     return {

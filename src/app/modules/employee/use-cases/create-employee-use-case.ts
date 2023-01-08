@@ -51,9 +51,9 @@ export class CreateEmployeeUseCase {
 
     if (by_employee.role !== "administrator") throw new AppError("only administrator can create an employee");
 
-    // verify if is creating in other institution
+    // verify if the institution is wrong
 
-    if (by_employee.institution_id !== institution_id) throw new AppError("can only create in the same institution");
+    if (by_employee.institution_id !== institution_id) throw new AppError("wrong institution");
 
     const verifiedPermissions = role === "administrator" ? [] : permissions;
 
